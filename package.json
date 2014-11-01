@@ -2,7 +2,7 @@
   "name": "gulp-teddy",
   "version": "0.0.1",
   "description": "Gulp plugin that compiles teddy templates",
-  "license": "free",
+  "license": "WTFPL",
   "repository": "Csombek/gulp-teddy",
   "author": {
     "name": "Csaba Tuncsik",

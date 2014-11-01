@@ -24,7 +24,7 @@ $ npm install --save-dev gulp-teddy
 </head>
 
 <body>
-    <include src='components/header.html'>
+    <include src='templates/header.html'>
         <arg mainTitle>Main title</arg>
     </include>
 </body>
@@ -32,7 +32,7 @@ $ npm install --save-dev gulp-teddy
 </html>
 ```
 
-### `src/html/components/header.html`
+### `src/html/templates/header.html`
 
 ```html
 <header>
@@ -54,7 +54,7 @@ var gulp  = require('gulp'),
 gulp.task('default', function() {
     return gulp.src(['src/html/**/*.html','!src/html/templates/**/*.html'])
     .pipe(teddy({
-        templateRoot: 'src/html/templates/'
+        templateRoot: 'src/html/'
     }))
     .pipe(gulp.dest('dist'));
 });
