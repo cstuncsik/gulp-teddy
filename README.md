@@ -94,6 +94,10 @@ Type: `Object`
 
 The only option is now `templateRoot`
 
+## Notes
+
+Tested only with html files, the plugin is under development
+
 ## License
 
 [WTFPL](http://www.wtfpl.net)

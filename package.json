@@ -1,7 +1,7 @@
 {
   "name": "gulp-teddy",
   "version": "0.0.1",
-  "description": "Gulp plugin that compiles teddy templates",
+  "description": "Teddy template compiler gulp plugin",
   "license": "WTFPL",
   "repository": "Csombek/gulp-teddy",
   "author": {
