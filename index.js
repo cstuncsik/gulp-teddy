@@ -1,41 +1,57 @@
-(function() {
+module.exports = (function() {
 
     'use strict';
 
     var gutil = require('gulp-util'),
-        through = require('through2'),
+        through2 = require('through2'),
         extend = require('extend'),
         teddy = require('teddy'),
         PLUGIN_NAME = 'gulp-teddy';
 
-    return module.exports = function(options) {
+    return {
 
-    	var defaults = extend(true, {}, options);
+        settings: function(settings) {
 
-    	teddy.setTemplateRoot(defaults.templateRoot);
+            var s = extend(true, {
+                setTemplateRoot: './',
+                setVerbosity: 0,
+                strictParser: false,
+                enableForeachTag: false,
+                compileAtEveryRender: false
+            }, settings);
 
-        return through.obj(function(file, enc, cb) {
+            teddy.setTemplateRoot(s.setTemplateRoot);
+            teddy.setVerbosity(s.setVerbosity);
+            teddy.strictParser(s.strictParser);
+            teddy.enableForeachTag(s.enableForeachTag);
+            teddy.compileAtEveryRender(s.compileAtEveryRender);
+        },
 
-            if (file.isNull()) {
-                cb(null, file);
-                return;
-            }
+        compile: function(data) {
 
-            if (file.isStream()) {
-                cb(new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
-                return;
-            }
+            return through2.obj(function(file, enc, cb) {
 
-            var filePath = file.path;
+                if (file.isNull()) {
+                    cb(null, file);
+                    return;
+                }
 
-            try {
-                file.contents = new Buffer(teddy.render(filePath));
-                cb(null, file);
-            } catch (err) {
-                cb(new gutil.PluginError(PLUGIN_NAME, err, {
-                    fileName: filePath
-                }));
-            }
-        });
+                if (file.isStream()) {
+                    cb(new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
+                    return;
+                }
+
+                var filePath = file.path;
+
+                try {
+                    file.contents = new Buffer(teddy.render(filePath, data || {}));
+                    cb(null, file);
+                } catch (err) {
+                    cb(new gutil.PluginError(PLUGIN_NAME, err, {
+                        fileName: filePath
+                    }));
+                }
+            });
+        }
     };
 })();

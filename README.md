@@ -51,11 +51,13 @@ $ npm install --save-dev gulp-teddy
 var gulp  = require('gulp'),
     teddy = require('gulp-teddy');
 
+teddy.settings({
+    setTemplateRoot: 'src/html/'
+});
+
 gulp.task('default', function() {
     return gulp.src(['src/html/**/*.html','!src/html/templates/**/*.html'])
-    .pipe(teddy({
-        templateRoot: 'src/html/'
-    }))
+    .pipe(teddy.compile())
     .pipe(gulp.dest('dist'));
 });
 ```
@@ -82,21 +84,99 @@ gulp.task('default', function() {
 </html>
 ```
 
+## Passing data
+
+### `src/html/index.html`
+
+```html
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <title>Title</title>
+</head>
+
+<body>
+    <loop through='letters' val='letter'>
+        <p>{letter}</p>
+    </loop>
+</body>
+
+</html>
+```
+
+### `gulpfile.js`
+
+```js
+var gulp  = require('gulp'),
+    teddy = require('gulp-teddy');
+
+teddy.settings({
+    setTemplateRoot: 'src/html/'
+});
+
+gulp.task('default', function() {
+    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
+        .pipe(teddy.compile({
+            letters: ['a', 'b', 'c']
+        }))
+        .pipe(gulp.dest('dist'));
+});
+```
+### `dist/index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Title</title>
+</head>
+
+<body>
+    <p>a</p>
+    <p>b</p>
+    <p>c</p>
+</body>
+
+</html>
+```
+
 ## API
 
-See the [Teddy docs](https://github.com/kethinov/teddy#api-documentation).
-
-### teddy(options)
+### teddy.settings(options)
 
 #### options
 
 Type: `Object`
 
-The only option is now `templateRoot`
+```js
+{
+    setTemplateRoot: './',
+    setVerbosity: 0,
+    strictParser: false,
+    enableForeachTag: false,
+    compileAtEveryRender: false
+}
+```
+See the [Teddy docs](https://github.com/kethinov/teddy#api-documentation).
+
+### teddy.compile(data)
+
+#### data (optional)
+
+Type: `Object`
 
 ## Notes
 
-Tested only with html files, the plugin is under development
+The compile method executes the original teddy.render() method with a template path and the optional data param.
+The original teddy.compile() method is not allowed, this plugin is for generating static html files with the help of the Teddy templating engine functionalities.
 
 ## License
 
