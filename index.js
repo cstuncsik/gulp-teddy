@@ -31,6 +31,9 @@ module.exports = (function() {
 
             return through2.obj(function(file, enc, cb) {
 
+                var _fp = file.path,
+                    _data = data || {};
+
                 if (file.isNull()) {
                     cb(null, file);
                     return;
@@ -41,14 +44,16 @@ module.exports = (function() {
                     return;
                 }
 
-                var filePath = file.path;
+                if (file.data) {
+                    _data = extend(true, file.data, _data);
+                }
 
                 try {
-                    file.contents = new Buffer(teddy.render(filePath, data || {}));
+                    file.contents = new Buffer(teddy.render(_fp, _data));
                     cb(null, file);
                 } catch (err) {
                     cb(new gutil.PluginError(PLUGIN_NAME, err, {
-                        fileName: filePath
+                        fileName: _fp
                     }));
                 }
             });

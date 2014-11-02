@@ -110,6 +110,8 @@ gulp.task('default', function() {
 
 ### `gulpfile.js`
 
+#### Passing data as an object
+
 ```js
 var gulp  = require('gulp'),
     teddy = require('gulp-teddy');
@@ -126,6 +128,33 @@ gulp.task('default', function() {
         .pipe(gulp.dest('dist'));
 });
 ```
+#### Passing data with [gulp-data](https://github.com/colynb/gulp-data)
+
+For example from a json file, you can use it together the above example, your data will be merged (extended)
+
+```js
+var gulp = require('gulp'),
+    data = require('gulp-data'),
+    path = require('path'),
+    teddy = require('gulp-teddy');
+
+teddy.settings({
+    setTemplateRoot: 'src/html/templates/'
+});
+
+gulp.task('default', function() {
+    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
+        .pipe(data(function(file) {
+            return require('data/' + path.basename(file.path) + '.json');
+        }))
+        .pipe(teddy.compile({
+            letters: ['a', 'b', 'c']
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
+```
+
 ### `dist/index.html`
 
 ```html
@@ -147,7 +176,6 @@ gulp.task('default', function() {
 
 </html>
 ```
-
 ## API
 
 ### teddy.settings(options)
