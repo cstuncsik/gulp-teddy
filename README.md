@@ -49,11 +49,9 @@ $ npm install --save-dev gulp-teddy
 
 ```js
 var gulp  = require('gulp'),
-    teddy = require('gulp-teddy');
-
-teddy.settings({
-    setTemplateRoot: 'src/html/'
-});
+    teddy = require('gulp-teddy').settings({
+        setTemplateRoot: 'src/html/'
+    });
 
 gulp.task('default', function() {
     return gulp.src(['src/html/**/*.html','!src/html/templates/**/*.html'])
@@ -86,7 +84,9 @@ gulp.task('default', function() {
 
 ## Passing data
 
-### `src/html/index.html`
+### Passing data as an object
+
+#### `src/html/index.html`
 
 ```html
 <!doctype html>
@@ -110,15 +110,11 @@ gulp.task('default', function() {
 
 ### `gulpfile.js`
 
-#### Passing data as an object
-
 ```js
 var gulp  = require('gulp'),
-    teddy = require('gulp-teddy');
-
-teddy.settings({
-    setTemplateRoot: 'src/html/'
-});
+    teddy = require('gulp-teddy').settings({
+        setTemplateRoot: 'src/html/'
+    });
 
 gulp.task('default', function() {
     return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
@@ -128,34 +124,8 @@ gulp.task('default', function() {
         .pipe(gulp.dest('dist'));
 });
 ```
-#### Passing data with [gulp-data](https://github.com/colynb/gulp-data)
 
-For example from a json file, you can use it together the above example, your data will be merged (extended)
-
-```js
-var gulp = require('gulp'),
-    data = require('gulp-data'),
-    path = require('path'),
-    teddy = require('gulp-teddy');
-
-teddy.settings({
-    setTemplateRoot: 'src/html/templates/'
-});
-
-gulp.task('default', function() {
-    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
-        .pipe(data(function(file) {
-            return require('data/' + path.basename(file.path) + '.json');
-        }))
-        .pipe(teddy.compile({
-            letters: ['a', 'b', 'c']
-        }))
-        .pipe(gulp.dest('dist'));
-});
-
-```
-
-### `dist/index.html`
+#### `dist/index.html`
 
 ```html
 <!DOCTYPE html>
@@ -176,6 +146,115 @@ gulp.task('default', function() {
 
 </html>
 ```
+
+### Passing data with [gulp-data](https://github.com/colynb/gulp-data)
+
+For example from a json file, you can use it together the above example, your data will be merged (extended)
+
+#### `src/html/index.html`
+
+```html
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <title>Title</title>
+</head>
+
+<body>
+    <if subTitle>
+        <h2>{subTitle}</h2>
+    </if>
+    <if subData and subData.level1>
+        <ul>
+            <loop through='subData.level1' key='name' val='text'>
+                <li>
+                    <strong>{name}</strong>
+                    <br />{text}
+                </li>
+            </loop>
+        </ul>
+    </if>
+</body>
+
+</html>
+```
+
+#### `src/data/index.json`
+
+```js
+{
+    "subTitle": "Sub title",
+    "subData": {
+        "level1": {
+            "sd1": "sub data 1",
+            "sd2": "sub data 2",
+            "sd3": "sub data 3"
+        }
+    }
+}
+```
+### `gulpfile.js`
+
+```js
+var gulp = require('gulp'),
+    data = require('gulp-data'),
+    path = require('path'),
+    teddy = require('gulp-teddy').settings({
+        setTemplateRoot: 'src/html/templates/'
+    });
+
+
+gulp.task('default', function() {
+    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
+        .pipe(data(function(file) {
+            return require('./src/data/' + path.basename(file.path, '.html') + '.json');
+        }))
+        .pipe(teddy.compile({
+            letters: ['a', 'b', 'c']
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
+```
+
+#### `dist/index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Title</title>
+</head>
+
+<body>
+    <h2>Sub title</h2>
+    <ul>
+        <li>
+            <strong>sd1</strong>
+            <br/>sub data 1
+        </li>
+        <li>
+            <strong>sd2</strong>
+            <br/>sub data 2
+        </li>
+        <li>
+            <strong>sd3</strong>
+            <br/>sub data 3
+        </li>
+    </ul>
+</body>
+
+</html>
+```
+
 ## API
 
 ### teddy.settings(options)
