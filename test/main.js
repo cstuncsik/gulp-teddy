@@ -3,15 +3,20 @@
     'use strict';
 
     var gutil = require('gulp-util'),
+        data = require('gulp-data'),
         should = require('should'),
         fs = require('fs'),
         path = require('path'),
-        teddy = require('../');
+        paths = {
+            html: path.join(__dirname, 'fixtures', 'html'),
+            data: path.join(__dirname, 'fixtures', 'data')
+        },
+        teddy = require('../').settings({
+            setTemplateRoot: paths.html
+        });
 
-    function createVinyl(htmlFileName, contents) {
-
-        var base = path.join(__dirname, 'fixtures'),
-            filePath = path.join(base, htmlFileName);
+    function createVinyl(base, file, contents) {
+        var filePath = path.join(base, file);
 
         return new gutil.File({
             cwd: __dirname,
@@ -21,28 +26,31 @@
         });
     }
 
-    teddy.settings({
-        setTemplateRoot: 'test/fixtures/'
-    });
+    it('should compile teddy template from file with data', function(cb) {
 
-    it('should compile teddy template from file', function(cb) {
-
-        var htmlFile = createVinyl('index.html'),
-            stream = teddy.compile({
-                letters: ['a', 'b', 'c']
+        var htmlFile = createVinyl(paths.html, 'index.html'),
+            stream = data(function(file) {
+                return require(paths.data + '/' + path.basename(file.path, '.html') + '.json');
             });
+
+        stream.pipe(teddy.compile({
+            letters: ['a', 'b', 'c']
+        }));
 
         stream.on('data', function(compiledFile) {
             should.exist(compiledFile);
             should.exist(compiledFile.path);
             should.exist(compiledFile.relative);
             should.exist(compiledFile.contents);
-            compiledFile.path.should.equal(path.join(__dirname, 'fixtures', 'index.html'));
+            compiledFile.path.should.equal(path.join(paths.html, 'index.html'));
             String(compiledFile.contents).should.equal(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'));
-            cb();
         });
 
+        stream.on('end', cb);
+
         stream.write(htmlFile);
+
+        stream.end();
     });
 
 })();
