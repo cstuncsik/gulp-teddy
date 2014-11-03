@@ -1,6 +1,6 @@
 {
   "name": "gulp-teddy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Teddy template compiler gulp plugin",
   "license": "WTFPL",
   "repository": "Csombek/gulp-teddy",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "mocha": "^2.0.1",
-    "should": "^4.1.0"
+    "should": "^4.1.0",
+    "gulp-data": "^1.0.2"
   }
 }

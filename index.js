@@ -25,6 +25,8 @@ module.exports = (function() {
             teddy.strictParser(s.strictParser);
             teddy.enableForeachTag(s.enableForeachTag);
             teddy.compileAtEveryRender(s.compileAtEveryRender);
+
+            return this;
         },
 
         compile: function(data) {
