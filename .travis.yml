@@ -1,3 +1,11 @@
 language: node_js
-node_js:
-  - "0.10"
+deploy:
+  provider: npm
+  email: csaba.tuncsik@gmail.com
+  api_key:
+    secure: EB+hBd9Mo54F8Dn3yvw6PN9LRv+rwSwXCTOOYNTiBd5kRNMAYPcacTn5IAiahcti8LfqAqAVASd5EMHdZoxEvwfHtTXYv8y0PeJs+r0x+T78PHx/e5IY8tnn9m8KDU6rKERxpltNd6+UR3aPLjs48jTfP08qnd6oqQlRmWe8Csk=
+  on:
+    repo: Csombek/gulp-teddy
+  api_key: 
+  email: csaba.tuncsik@gmail.com
+  provider: npm
