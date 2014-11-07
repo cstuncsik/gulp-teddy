@@ -1,4 +1,4 @@
-# gulp-teddy
+# gulp-teddy [![Build Status](https://travis-ci.org/Csombek/gulp-teddy.svg?branch=master)](https://travis-ci.org/Csombek/gulp-teddy)
 
 > Compiles [Teddy](https://github.com/kethinov/teddy) templates
 
