@@ -283,8 +283,13 @@ Type: `Object`
 ## Notes
 
 The compile method executes the original teddy.render() method with a template path and the optional data param.
+
 The original teddy.compile() method is not allowed, this plugin is for generating static html files with the help of the Teddy templating engine functionalities.
 
 ## License
 
-[WTFPL](http://www.wtfpl.net)
+Copyright © 2014 Csaba Tuncsik <csaba.tuncsik@gmail.com>
+
+This work is free. You can redistribute it and/or modify it under the
+terms of the Do What The Fuck You Want To Public License, Version 2,
+as published by Sam Hocevar. See [WTFPL](http://www.wtfpl.net) ![WTFPL icon](http://i.imgur.com/AsWaQQl.png) for more details.
