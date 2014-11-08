@@ -4,7 +4,7 @@ module.exports = (function() {
 
     var gutil = require('gulp-util'),
         through2 = require('through2'),
-        extend = require('extend'),
+        _ = require('lodash'),
         teddy = require('teddy'),
         PLUGIN_NAME = 'gulp-teddy';
 
@@ -12,7 +12,7 @@ module.exports = (function() {
 
         settings: function(settings) {
 
-            var s = extend(true, {
+            var s = _.extend({
                 setTemplateRoot: './',
                 setVerbosity: 0,
                 strictParser: false,
@@ -47,7 +47,7 @@ module.exports = (function() {
                 }
 
                 if (file.data) {
-                    _data = extend(true, file.data, _data);
+                    _data = _.extend(file.data, _data);
                 }
 
                 try {

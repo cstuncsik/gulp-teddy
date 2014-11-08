@@ -1,4 +1,6 @@
-# gulp-teddy [![Build Status](https://travis-ci.org/Csombek/gulp-teddy.svg?branch=master)](https://travis-ci.org/Csombek/gulp-teddy)
+[![Build Status](https://travis-ci.org/Csombek/gulp-teddy.svg?branch=master)](https://travis-ci.org/Csombek/gulp-teddy) [![npm version](https://badge.fury.io/js/gulp-teddy.svg)](http://badge.fury.io/js/gulp-teddy) [![Dependency Status](https://gemnasium.com/Csombek/gulp-teddy.svg)](https://gemnasium.com/Csombek/gulp-teddy)
+
+# gulp-teddy
 
 > Compiles [Teddy](https://github.com/kethinov/teddy) templates
 
