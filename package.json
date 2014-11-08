@@ -1,6 +1,6 @@
 {
   "name": "gulp-teddy",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Teddy template compiler gulp plugin",
   "license": "WTFPL",
   "repository": "Csombek/gulp-teddy",
@@ -29,7 +29,7 @@
     "gulp-util": "^3.0.1",
     "lodash": "^2.4.1",
     "teddy": "^0.3.4",
-    "through2": "^0.6.3"
+    "through2": "^1.1.1"
   },
   "devDependencies": {
     "gulp-data": "^1.0.2",
