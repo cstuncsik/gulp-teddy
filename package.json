@@ -1,15 +1,12 @@
 {
   "name": "gulp-teddy",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Teddy template compiler gulp plugin",
   "license": "WTFPL",
   "repository": "cstuncsik/gulp-teddy",
   "author": {
     "name": "Csaba Tuncsik",
     "email": "csaba.tuncsik@gmail.com"
-  },
-  "engines": {
-    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
@@ -26,14 +23,14 @@
     "rendering"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.6",
-    "lodash": "^3.10.0",
+    "extend": "^3.0.0",
+    "gulp-util": "^3.0.7",
     "teddy": "^0.3.5",
-    "through2": "^2.0.0"
+    "through": "^2.3.8"
   },
   "devDependencies": {
-    "gulp-data": "^1.2.0",
-    "mocha": "^2.2.5",
-    "should": "^7.0.2"
+    "gulp-data": "^1.2.1",
+    "mocha": "^2.4.5",
+    "should": "^8.2.1"
   }
 }
