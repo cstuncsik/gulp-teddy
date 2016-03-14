@@ -3,7 +3,8 @@ deploy:
   provider: npm
   email: csaba.tuncsik@gmail.com
   api_key:
-    secure: EB+hBd9Mo54F8Dn3yvw6PN9LRv+rwSwXCTOOYNTiBd5kRNMAYPcacTn5IAiahcti8LfqAqAVASd5EMHdZoxEvwfHtTXYv8y0PeJs+r0x+T78PHx/e5IY8tnn9m8KDU6rKERxpltNd6+UR3aPLjs48jTfP08qnd6oqQlRmWe8Csk=
+    secure: OgRfLbU6o68KNKheIk+HQyCvJCcrUVYo696sRb2krnelNrO7KzcAyYqykb2rXQjOlOcnxiRe9wETbq6/KxGJch4yMtXhKp/6OUThhTofHBXLxYgYC9OFDT5EP36iXpDDI0M6b3BR5uuwJzHX4/A4kOR+f389Q5s/JxwcaCbA1e0=
   on:
     tags: true
+    all_branches: true
     repo: cstuncsik/gulp-teddy
