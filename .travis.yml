@@ -1,10 +1,11 @@
 language: node_js
+node_js:
+  - "0.12"
 deploy:
   provider: npm
   email: csaba.tuncsik@gmail.com
   api_key:
-    secure: OgRfLbU6o68KNKheIk+HQyCvJCcrUVYo696sRb2krnelNrO7KzcAyYqykb2rXQjOlOcnxiRe9wETbq6/KxGJch4yMtXhKp/6OUThhTofHBXLxYgYC9OFDT5EP36iXpDDI0M6b3BR5uuwJzHX4/A4kOR+f389Q5s/JxwcaCbA1e0=
+    secure: H8rEWOeI0uelnxnT65aiT8z1Fdd9hRx2T2jYT81wmIKMsI2agpK+JSFQvy8vjt64zINjTCgo4TIlkeKBZ/TP21mS6vNtFuYbona6nZsqCOT8DSKMVRS3IIRTL2JY52iHpaXGgpst0T1Pb81nWjECQ36Q6+lry03hhiHOKJd4QIY=
   on:
     tags: true
-    all_branches: true
     repo: cstuncsik/gulp-teddy
