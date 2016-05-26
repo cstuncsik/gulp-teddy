@@ -1,11 +1,20 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
 node_js:
-  - "0.12"
-deploy:
-  provider: npm
-  email: csaba.tuncsik@gmail.com
-  api_key:
-    secure: H8rEWOeI0uelnxnT65aiT8z1Fdd9hRx2T2jYT81wmIKMsI2agpK+JSFQvy8vjt64zINjTCgo4TIlkeKBZ/TP21mS6vNtFuYbona6nZsqCOT8DSKMVRS3IIRTL2JY52iHpaXGgpst0T1Pb81nWjECQ36Q6+lry03hhiHOKJd4QIY=
-  on:
-    tags: true
-    repo: cstuncsik/gulp-teddy
+  - '4'
+before_install:
+  - npm i -g npm@^2.0.0
+before_script:
+  - npm prune
+script:
+  - npm run test
+after_success:
+  - npm run semantic-release
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
