@@ -41,7 +41,7 @@
     "gulp-data": "^1.2.1",
     "mocha": "^2.4.5",
     "semantic-release": "^4.3.5",
-    "should": "^8.2.2"
+    "should": "^9.0.0"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
