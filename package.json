@@ -31,19 +31,21 @@
   ],
   "dependencies": {
     "extend": "^3.0.0",
-    "gulp-util": "^3.0.7",
-    "teddy": "^0.3.5",
-    "through2": "^2.0.2"
+    "gulp-util": "^3.0.8",
+    "teddy": "^0.3.8",
+    "through2": "^2.0.3"
   },
   "devDependencies": {
-    "commitizen": "^2.8.1",
-    "cz-conventional-changelog": "^1.1.6",
+    "commitizen": "^2.9.4",
+    "cz-conventional-changelog": "^1.2.0",
     "gulp-data": "^1.2.1",
-    "mocha": "^3.0.0",
-    "semantic-release": "^6.3.0",
-    "should": "^11.0.0"
+    "mocha": "^3.2.0",
+    "semantic-release": "^6.3.2",
+    "should": "^11.1.2"
   },
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
