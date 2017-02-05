@@ -15,15 +15,11 @@ module.exports = (function() {
             var s = extend(true, {
                 setTemplateRoot: './',
                 setVerbosity: 0,
-                strictParser: false,
-                enableForeachTag: false,
                 compileAtEveryRender: false
             }, settings);
 
             teddy.setTemplateRoot(s.setTemplateRoot);
             teddy.setVerbosity(s.setVerbosity);
-            teddy.strictParser(s.strictParser);
-            teddy.enableForeachTag(s.enableForeachTag);
             teddy.compileAtEveryRender(s.compileAtEveryRender);
 
             return this;
