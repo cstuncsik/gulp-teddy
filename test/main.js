@@ -5,6 +5,10 @@
     var gutil = require('gulp-util'),
         data = require('gulp-data'),
         should = require('should'),
+        minify = require('html-minifier').minify,
+        minifySettings = {
+            collapseWhitespace: true
+        },
         fs = require('fs'),
         path = require('path'),
         paths = {
@@ -43,7 +47,7 @@
             should.exist(compiledFile.relative);
             should.exist(compiledFile.contents);
             compiledFile.path.should.equal(path.join(paths.html, 'index.html'));
-            String(compiledFile.contents).should.equal(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'));
+            minify(String(compiledFile.contents), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
         });
 
         stream.on('end', cb);
