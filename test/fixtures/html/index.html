@@ -2,35 +2,35 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <title>Title</title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <title>Title</title>
 </head>
 
 <body>
-    <include src='templates/header.html'>
-        <arg mainTitle>Main title</arg>
-    </include>
-    <if subTitle>
-        <h2>{subTitle}</h2>
-    </if>
-    <if letters>
-        <loop through='letters' val='letter'>
-            <p>{letter}</p>
-        </loop>
-    </if>
-    <if subData and subData.level1>
-        <ul>
-            <loop through='subData.level1' key='name' val='text'>
-                <li>
+<include src='templates/header.html'>
+  <arg mainTitle>Main title</arg>
+</include>
+<if subTitle>
+  <h2>{subTitle}</h2>
+</if>
+<if letters>
+  <loop through='letters' val='letter'>
+    <p>{letter}</p>
+  </loop>
+</if>
+<if subData and subData.level1>
+  <ul>
+    <loop through='subData.level1' key='name' val='text'>
+      <li>
 
-                    <strong>{name}</strong>
-                    <br />{text}
-                </li>
-            </loop>
-        </ul>
-    </if>
+        <strong>{name}</strong>
+        <br/>{text}
+      </li>
+    </loop>
+  </ul>
+</if>
 </body>
 
 </html>

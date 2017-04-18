@@ -1,60 +1,55 @@
-module.exports = (function() {
+module.exports = (function () {
 
-    'use strict';
+  'use strict';
 
-    var gutil = require('gulp-util'),
-        through2 = require('through2'),
-        extend = require('extend'),
-        teddy = require('teddy'),
-        PLUGIN_NAME = 'gulp-teddy';
+  var es = require('event-stream'),
+    through2 = require('through2'),
+    extend = require('extend'),
+    teddy = require('teddy');
 
-    return {
+  return {
 
-        settings: function(settings) {
+    settings: function (settings) {
 
-            var s = extend(true, {
-                setTemplateRoot: './',
-                setVerbosity: 0,
-                compileAtEveryRender: false
-            }, settings);
+      var s = extend(true, {
+        setTemplateRoot: './',
+        setVerbosity: 0,
+        compileAtEveryRender: false
+      }, settings);
 
-            teddy.setTemplateRoot(s.setTemplateRoot);
-            teddy.setVerbosity(s.setVerbosity);
-            teddy.compileAtEveryRender(s.compileAtEveryRender);
+      teddy.setTemplateRoot(s.setTemplateRoot);
+      teddy.setVerbosity(s.setVerbosity);
+      teddy.compileAtEveryRender(s.compileAtEveryRender);
 
-            return this;
-        },
+      return this;
+    },
 
-        compile: function(data) {
+    compile: function (data) {
 
-            return through2.obj(function(file, enc, cb) {
+      return through2.obj(function (file, enc, cb) {
 
-                var _fp = file.path,
-                    _data = data || {};
-
-                if (file.isNull()) {
-                    cb(null, file);
-                    return;
-                }
-
-                if (file.isStream()) {
-                    cb(new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
-                    return;
-                }
-
-                if (file.data) {
-                    _data = extend(true, file.data, _data);
-                }
-
-                try {
-                    file.contents = new Buffer(teddy.render(_fp, _data));
-                    cb(null, file);
-                } catch (err) {
-                    cb(new gutil.PluginError(PLUGIN_NAME, err, {
-                        fileName: _fp
-                    }));
-                }
-            });
+        if (file.isNull()) {
+          return cb(null, file);
         }
-    };
+
+        var _data = data || {};
+
+        if (file.data) {
+          _data = extend(true, file.data, _data);
+        }
+
+        if (file.isBuffer()) {
+          file.contents = new Buffer(teddy.render(file.contents, _data));
+        }
+
+        if (file.isStream()) {
+          file.contents = file.contents.pipe(es.map(function(template, callback){
+            callback(null, teddy.render(template, _data));
+          }));
+        }
+        cb(null, file);
+
+      });
+    }
+  };
 })();

@@ -1,60 +1,76 @@
-(function() {
+(function () {
 
-    'use strict';
+  'use strict';
 
-    var gutil = require('gulp-util'),
-        data = require('gulp-data'),
-        should = require('should'),
-        minify = require('html-minifier').minify,
-        minifySettings = {
-            collapseWhitespace: true
-        },
-        fs = require('fs'),
-        path = require('path'),
-        paths = {
-            html: path.join(__dirname, 'fixtures', 'html'),
-            data: path.join(__dirname, 'fixtures', 'data')
-        },
-        teddy = require('../').settings({
-            setTemplateRoot: paths.html
-        });
-
-    function createVinyl(base, file, contents) {
-        var filePath = path.join(base, file);
-
-        return new gutil.File({
-            cwd: __dirname,
-            base: base,
-            path: filePath,
-            contents: contents || fs.readFileSync(filePath)
-        });
-    }
-
-    it('should compile teddy template from file with data', function(cb) {
-
-        var htmlFile = createVinyl(paths.html, 'index.html'),
-            stream = data(function(file) {
-                return require(paths.data + '/' + path.basename(file.path, '.html') + '.json');
-            });
-
-        stream.pipe(teddy.compile({
-            letters: ['a', 'b', 'c']
-        }));
-
-        stream.on('data', function(compiledFile) {
-            should.exist(compiledFile);
-            should.exist(compiledFile.path);
-            should.exist(compiledFile.relative);
-            should.exist(compiledFile.contents);
-            compiledFile.path.should.equal(path.join(paths.html, 'index.html'));
-            minify(String(compiledFile.contents), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
-        });
-
-        stream.on('end', cb);
-
-        stream.write(htmlFile);
-
-        stream.end();
+  var es = require('event-stream'),
+    gutil = require('gulp-util'),
+    data = require('gulp-data'),
+    should = require('should'),
+    minify = require('html-minifier').minify,
+    minifySettings = {
+      collapseWhitespace: true
+    },
+    fs = require('fs'),
+    path = require('path'),
+    paths = {
+      html: path.join(__dirname, 'fixtures', 'html'),
+      data: path.join(__dirname, 'fixtures', 'data')
+    },
+    teddy = require('../').settings({
+      setTemplateRoot: paths.html
     });
+
+  function createFile(base, file, type) {
+    var filePath = path.join(base, file);
+
+    return new gutil.File({
+      cwd: __dirname,
+      base: base,
+      path: filePath,
+      contents: (type === 'buffer') ? fs.readFileSync(filePath) : fs.createReadStream(filePath)
+    });
+  }
+
+  it('should compile teddy template from file with data', function (cb) {
+
+    var htmlFile = createFile(paths.html, 'index.html', 'buffer'),
+      stream = data(function (file) {
+        return require(paths.data + '/' + path.basename(file.path, '.html') + '.json');
+      });
+
+    stream.pipe(teddy.compile({
+      letters: ['a', 'b', 'c']
+    }));
+
+    stream.once('data', function (compiledFile) {
+      compiledFile.isBuffer().should.be.true();
+      minify(String(compiledFile.contents), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
+      cb();
+    });
+
+    stream.write(htmlFile);
+  });
+
+  it('should compile teddy template from stream with data', function (cb) {
+
+    var htmlFile = createFile(paths.html, 'index.html', 'stream'),
+      stream = data(function (file) {
+        return require(paths.data + '/' + path.basename(file.path, '.html') + '.json');
+      });
+
+    stream.pipe(teddy.compile({
+      letters: ['a', 'b', 'c']
+    }));
+
+    stream.once('data', function (compiledFile) {
+      compiledFile.isStream().should.be.true();
+      compiledFile.contents.pipe(es.wait(function(err, data) {
+        minify(String(data), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
+        cb();
+      }));
+    });
+
+    stream.write(htmlFile);
+  });
 
 })();

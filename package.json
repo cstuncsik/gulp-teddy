@@ -30,6 +30,7 @@
     "rendering"
   ],
   "dependencies": {
+    "event-stream": "^3.3.4",
     "extend": "^3.0.0",
     "gulp-util": "^3.0.8",
     "teddy": "^0.4.0",

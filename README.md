@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/cstuncsik/gulp-teddy.svg?branch=master)](https://travis-ci.org/cstuncsik/gulp-teddy) [![npm version](https://badge.fury.io/js/gulp-teddy.svg)](http://badge.fury.io/js/gulp-teddy) [![Dependency Status](https://gemnasium.com/cstuncsik/gulp-teddy.svg)](https://gemnasium.com/cstuncsik/gulp-teddy) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Build Status](https://travis-ci.org/cstuncsik/gulp-teddy.svg?branch=master)](https://travis-ci.org/cstuncsik/gulp-teddy)
+[![npm version](https://badge.fury.io/js/gulp-teddy.svg)](http://badge.fury.io/js/gulp-teddy)
+[![Dependency Status](https://gemnasium.com/cstuncsik/gulp-teddy.svg)](https://gemnasium.com/cstuncsik/gulp-teddy)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cstuncsik/gulp-teddy/master/LICENSE)
 
 # gulp-teddy
 
@@ -287,11 +292,3 @@ Type: `Object`
 The compile method executes the original teddy.render() method with a template path and the optional data param.
 
 The original teddy.compile() method is not allowed, this plugin is for generating static html files with the help of the Teddy templating engine functionalities.
-
-## License
-
-Copyright © 2016 Csaba Tuncsik <csaba.tuncsik@gmail.com>
-
-This work is free. You can redistribute it and/or modify it under the
-terms of the Do What The Fuck You Want To Public License, Version 2,
-as published by Sam Hocevar. See [WTFPL](http://www.wtfpl.net) ![WTFPL icon](http://i.imgur.com/AsWaQQl.png) for more details.
