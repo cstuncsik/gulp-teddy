@@ -16,6 +16,10 @@
     "test": "mocha",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "engineStrict": true,
   "files": [
     "index.js"
   ],

@@ -1,55 +1,50 @@
-module.exports = (function () {
+const es = require('event-stream');
+const through2 = require('through2');
+const extend = require('extend');
+const teddy = require('teddy');
 
-  'use strict';
+module.exports = {
 
-  var es = require('event-stream'),
-    through2 = require('through2'),
-    extend = require('extend'),
-    teddy = require('teddy');
+  settings: function (settings) {
 
-  return {
+    const s = extend(true, {
+      setTemplateRoot: './',
+      setVerbosity: 0,
+      compileAtEveryRender: false
+    }, settings);
 
-    settings: function (settings) {
+    teddy.setTemplateRoot(s.setTemplateRoot);
+    teddy.setVerbosity(s.setVerbosity);
+    teddy.compileAtEveryRender(s.compileAtEveryRender);
 
-      var s = extend(true, {
-        setTemplateRoot: './',
-        setVerbosity: 0,
-        compileAtEveryRender: false
-      }, settings);
+    return this;
+  },
 
-      teddy.setTemplateRoot(s.setTemplateRoot);
-      teddy.setVerbosity(s.setVerbosity);
-      teddy.compileAtEveryRender(s.compileAtEveryRender);
+  compile: function (data) {
 
-      return this;
-    },
+    return through2.obj((file, enc, cb) => {
 
-    compile: function (data) {
+      if (file.isNull()) {
+        return cb(null, file);
+      }
 
-      return through2.obj(function (file, enc, cb) {
+      let _data = data || {};
 
-        if (file.isNull()) {
-          return cb(null, file);
-        }
+      if (file.data) {
+        _data = extend(true, file.data, _data);
+      }
 
-        var _data = data || {};
+      if (file.isBuffer()) {
+        file.contents = new Buffer(teddy.render(file.contents.toString(), _data));
+      }
 
-        if (file.data) {
-          _data = extend(true, file.data, _data);
-        }
+      if (file.isStream()) {
+        file.contents = file.contents.pipe(es.map((template, callback) => {
+          callback(null, teddy.render(template.toString(), _data));
+        }));
+      }
+      cb(null, file);
 
-        if (file.isBuffer()) {
-          file.contents = new Buffer(teddy.render(file.contents.toString(), _data));
-        }
-
-        if (file.isStream()) {
-          file.contents = file.contents.pipe(es.map(function(template, callback){
-            callback(null, teddy.render(template.toString(), _data));
-          }));
-        }
-        cb(null, file);
-
-      });
-    }
-  };
-})();
+    });
+  }
+};

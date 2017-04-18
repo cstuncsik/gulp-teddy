@@ -1,9 +1,0 @@
-{
-  "node": true,
-  "curly": true,
-  "noarg": true,
-  "undef": true,
-  "unused": "vars",
-  "strict": true,
-  "mocha": true
-}
