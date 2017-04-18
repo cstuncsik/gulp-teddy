@@ -31,7 +31,7 @@
     });
   }
 
-  it('should compile teddy template from file with data', function (cb) {
+  it('should compile teddy template from buffer with data', function (cb) {
 
     var htmlFile = createFile(paths.html, 'index.html', 'buffer'),
       stream = data(function (file) {
