@@ -39,12 +39,12 @@ module.exports = (function () {
         }
 
         if (file.isBuffer()) {
-          file.contents = new Buffer(teddy.render(file.path, _data));
+          file.contents = new Buffer(teddy.render(file.contents.toString(), _data));
         }
 
         if (file.isStream()) {
           file.contents = file.contents.pipe(es.map(function(template, callback){
-            callback(null, teddy.render(file.path, _data));
+            callback(null, teddy.render(template.toString(), _data));
           }));
         }
         cb(null, file);
