@@ -52,9 +52,7 @@ describe('gulp-teddy', () => {
   it('should compile teddy template from stream with data', cb => {
 
     const htmlFile = createFile(paths.html, 'index.html', 'stream');
-    const stream = data(function (file) {
-      return require(paths.data + '/' + path.basename(file.path, '.html') + '.json');
-    });
+    const stream = data(file => require(paths.data + '/' + path.basename(file.path, '.html') + '.json'));
 
     stream.pipe(teddy.compile({
       letters: ['a', 'b', 'c']
@@ -72,5 +70,3 @@ describe('gulp-teddy', () => {
   });
 
 });
-
-
