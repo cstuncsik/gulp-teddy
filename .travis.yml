@@ -13,6 +13,7 @@ script:
   - npm test
 after_success:
   - npm run semantic-release
+  - bash yarn.sh
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
