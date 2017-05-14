@@ -47,7 +47,7 @@
     "eslint": "^3.19.0",
     "gulp-data": "^1.2.1",
     "html-minifier": "^3.3.0",
-    "mocha": "^3.2.0",
+    "mocha": "^3.4.0",
     "semantic-release": "^6.3.2",
     "should": "^11.1.2"
   },
