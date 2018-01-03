@@ -17,7 +17,7 @@ git checkout $TRAVIS_PULL_REQUEST_BRANCH
 git log --name-status HEAD^..HEAD | grep "update" || exit 0
 
 echo "(Creat/updat)ing lockfile"
-yarn
+yarn install --ignore-engines
 
 echo "Commit and push yarn.lock"
 git config --global user.email "$PUSH_EMAIL"

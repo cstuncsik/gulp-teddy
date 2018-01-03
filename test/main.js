@@ -1,7 +1,7 @@
 require('should');
 
-const es = require('event-stream');
-const gutil = require('gulp-util');
+const through2 = require('through2');
+const Vinyl = require('vinyl');
 const data = require('gulp-data');
 const minify = require('html-minifier').minify;
 const minifySettings = {
@@ -21,7 +21,7 @@ const teddy = require('../').settings({
 const createFile = (base, file, type) => {
   const filePath = path.join(base, file);
 
-  return new gutil.File({
+  return new Vinyl({
     cwd: __dirname,
     base: base,
     path: filePath,
@@ -31,7 +31,7 @@ const createFile = (base, file, type) => {
 
 describe('gulp-teddy', () => {
 
-  it('should compile teddy template from buffer with data', cb => {
+  it('should compile teddy template from buffer with data', done => {
 
     const htmlFile = createFile(paths.html, 'index.html', 'buffer');
     const stream = data(file => require(paths.data + '/' + path.basename(file.path, '.html') + '.json'));
@@ -43,13 +43,13 @@ describe('gulp-teddy', () => {
     stream.once('data', file => {
       file.isBuffer().should.be.true();
       minify(String(file.contents), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
-      cb();
+      done();
     });
 
     stream.write(htmlFile);
   });
 
-  it('should compile teddy template from stream with data', cb => {
+  it('should compile teddy template from stream with data', done => {
 
     const htmlFile = createFile(paths.html, 'index.html', 'stream');
     const stream = data(file => require(paths.data + '/' + path.basename(file.path, '.html') + '.json'));
@@ -60,9 +60,10 @@ describe('gulp-teddy', () => {
 
     stream.once('data', file => {
       file.isStream().should.be.true();
-      file.contents.pipe(es.wait((err, data) => {
+      file.contents.pipe(through2.obj((data, enc, cb) => {
         minify(String(data), minifySettings).should.equal(minify(fs.readFileSync(path.join(__dirname, 'expect/index.html'), 'utf8'), minifySettings));
-        cb();
+        cb(null, data);
+        done();
       }));
     });
 

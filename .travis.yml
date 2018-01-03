@@ -6,14 +6,28 @@ cache:
 notifications:
   email: false
 node_js:
-  - '6'
+  - 8
+  - 6
+  - 4
+os:
+  - linux
+  - osx
+env:
+  - BUILD_LEADER_ID=7
+jobs:
+  include:
+    - stage: release
+      node_js: 8
+      os: linux
+      after_success:
+        - yarn semantic-release
+        - bash yarn.sh
+install:
+  - yarn install --ignore-engines
 before_script:
-  - npm run lint
+  - yarn lint
 script:
-  - npm test
-after_success:
-  - npm run semantic-release
-  - bash yarn.sh
+  - yarn test
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

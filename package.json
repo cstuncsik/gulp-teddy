@@ -2,7 +2,7 @@
   "name": "gulp-teddy",
   "version": "0.0.0-semantic-release",
   "description": "Teddy template compiler gulp plugin",
-  "license": "WTFPL",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/cstuncsik/gulp-teddy.git"
@@ -15,7 +15,7 @@
     "commit": "git-cz",
     "test": "mocha",
     "lint": "eslint .",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -35,21 +35,20 @@
     "rendering"
   ],
   "dependencies": {
-    "event-stream": "^3.3.4",
-    "extend": "^3.0.0",
-    "gulp-util": "^3.0.8",
-    "teddy": "^0.4.9",
+    "extend": "^3.0.1",
+    "teddy": "^0.4.22",
     "through2": "^2.0.3"
   },
   "devDependencies": {
     "commitizen": "^2.9.4",
-    "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^3.19.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^4.14.0",
     "gulp-data": "^1.2.1",
-    "html-minifier": "^3.3.0",
-    "mocha": "^3.4.0",
-    "semantic-release": "^6.3.2",
-    "should": "^11.1.2"
+    "html-minifier": "^3.5.8",
+    "mocha": "^4.1.0",
+    "semantic-release": "^11.0.2",
+    "should": "^13.2.0",
+    "vinyl": "^2.1.0"
   },
   "config": {
     "commitizen": {

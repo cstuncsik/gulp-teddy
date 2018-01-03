@@ -1,4 +1,3 @@
-const es = require('event-stream');
 const through2 = require('through2');
 const extend = require('extend');
 const teddy = require('teddy');
@@ -39,7 +38,7 @@ module.exports = {
       }
 
       if (file.isStream()) {
-        file.contents = file.contents.pipe(es.map((template, callback) => {
+        file.contents = file.contents.pipe(through2.obj((template, enc, callback) => {
           callback(null, teddy.render(template.toString(), _data));
         }));
       }
