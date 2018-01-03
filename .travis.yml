@@ -8,12 +8,11 @@ notifications:
 node_js:
   - 8
   - 6
-  - 4
 os:
   - linux
   - osx
 env:
-  - BUILD_LEADER_ID=7
+  - BUILD_LEADER_ID=5
 jobs:
   include:
     - stage: release
