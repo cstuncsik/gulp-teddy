@@ -35,7 +35,7 @@
     "rendering"
   ],
   "dependencies": {
-    "extend": "^3.0.1",
+    "extend": "^3.0.2",
     "teddy": "^0.4.22",
     "through2": "^2.0.3"
   },
