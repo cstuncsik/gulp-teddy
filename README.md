@@ -213,16 +213,13 @@ var gulp = require('gulp'),
     });
 
 
-gulp.task('default', function() {
-    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
-        .pipe(data(function(file) {
-            return require('./src/data/' + path.basename(file.path, '.html') + '.json');
-        }))
-        .pipe(teddy.compile({
-            letters: ['a', 'b', 'c']
-        }))
-        .pipe(gulp.dest('dist'));
-});
+gulp.task('default', () => gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
+    .pipe(data(file => require('./src/data/' + path.basename(file.path, '.html') + '.json')))
+    .pipe(teddy.compile({
+        letters: ['a', 'b', 'c']
+    }))
+    .pipe(gulp.dest('dist'))
+);
 
 ```
 
