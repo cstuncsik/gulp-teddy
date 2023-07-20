@@ -8,13 +8,11 @@ module.exports = {
 
     const s = extend(true, {
       setTemplateRoot: './',
-      setVerbosity: 0,
-      compileAtEveryRender: false
+      setVerbosity: 0
     }, settings);
 
     teddy.setTemplateRoot(s.setTemplateRoot);
     teddy.setVerbosity(s.setVerbosity);
-    teddy.compileAtEveryRender(s.compileAtEveryRender);
 
     return this;
   },
@@ -34,7 +32,7 @@ module.exports = {
       }
 
       if (file.isBuffer()) {
-        file.contents = new Buffer(teddy.render(file.contents.toString(), _data));
+        file.contents = Buffer.from(teddy.render(file.contents.toString(), _data));
       }
 
       if (file.isStream()) {

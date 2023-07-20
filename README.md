@@ -60,11 +60,10 @@ var gulp  = require('gulp'),
         setTemplateRoot: 'src/html/'
     });
 
-gulp.task('default', function() {
-    return gulp.src(['src/html/**/*.html','!src/html/templates/**/*.html'])
+gulp.task('default', () => gulp.src(['src/html/**/*.html','!src/html/templates/**/*.html'])
     .pipe(teddy.compile())
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist'))
+);
 ```
 
 ### `dist/index.html`
@@ -123,13 +122,12 @@ var gulp  = require('gulp'),
         setTemplateRoot: 'src/html/'
     });
 
-gulp.task('default', function() {
-    return gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
-        .pipe(teddy.compile({
-            letters: ['a', 'b', 'c']
-        }))
-        .pipe(gulp.dest('dist'));
-});
+gulp.task('default', () => gulp.src(['src/html/**/*.html', '!src/html/templates/**/*.html'])
+    .pipe(teddy.compile({
+        letters: ['a', 'b', 'c']
+    }))
+    .pipe(gulp.dest('dist'))
+);
 ```
 
 #### `dist/index.html`
